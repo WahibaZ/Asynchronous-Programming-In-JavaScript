@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+//........................exercice 1..........................................................
+
+       /* const delay = ms => new Promise((resolve, reject)=>{
+            if (ms<0) {
+                reject(new Error(`le delai doit etre positif`))
+            } else {
+                setTimeout(resolve, ms);
+            }
+
+        });
+
+        async function iterateWithAsyncAwait(tab) {
+            try {
+                for (let element of tab) {
+                    await delay(1000);
+                    console.log(`la valeur : ${element}`);
+                }
+            } catch (err) {
+                console.error(`erreur:`, err);
+            }
+        }
+
+        const array = [2, 9, 8, 4, 3, 2, 0];
+        iterateWithAsyncAwait(array); */
+    
+
+//...............................exercice 2......................................................
+/* async function awaitCall(){
+try{
+console.log ('fetching data');
+const data = await fetchDataFromAPI()
+console.log(data )
+}
+catch (error) {
+    console.error('Error:', error);
+}
+}
+    function fetchDataFromAPI() {
+        return new Promise((resolve, reject) => {
+      
+          setTimeout(() => {
+            resolve({ name: 'asma', age: 32 }); 
+          }, 2000);
+        });
+      } ;
+
+awaitCall(); */
+//...............................exercice 3......................................................
+/* function fetchData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const error = new Error("Failed to fetch data from the API");
+            reject(error);
+          }, 2000);
+        });
+      }
+      async function awaitCall() {
+        try {
+            const data = await fetchData();
+            console.log("Received data:", data);
+          } catch (error) {
+            console.error("Error fetching data:", error.message);
+            console.log("Failed to fetch data from the API. Please try again later.");
+          }
+        }
+        awaitCall(); */
+//...............................exercice 4......................................................
+async function concurrentRequests(url1, url2) {
+    try {
+        // Créer un tableau de promesses pour chaque appel API
+        const fetchPromises = [
+            fetch(url1).then(response => response.json()),
+            fetch(url2).then(response => response.json())
+        ];
+
+        // Attendre que toutes les promesses soient résolues
+        const [response1, response2] = await Promise.all(fetchPromises);
+
+        // Retourner les résultats combinés
+        return [response1, response2];
+    } catch (error) {
+        // Gérer les erreurs éventuelles
+        console.error('Erreur lors de la récupération des données:', error);
+        throw error; // Optionnel: relancer l'erreur pour que le code appelant puisse la gérer
+    }
+}
+
+// Exemple d'utilisation
+const url1 = 'https://jsonplaceholder.typicode.com/posts/1';
+const url2 = 'https://jsonplaceholder.typicode.com/posts/2';
+
+concurrentRequests(url1, url2)
+    .then(([response1, response2]) => {
+        console.log('Résultat de la requête 1:', response1);
+        console.log('Résultat de la requête 2:', response2);
+    })
+    .catch(error => {
+        console.error('Une erreur s\'est produite:', error);
+    });
+
+//...............................exercice 5......................................................
+/* async function parallelCalls(urls) {
+            try{
+ const fetchPromesses = urls.map(url => fetch(url).then(response => response.json()));
+const result= await Promise.all (fetchPromesses);
+          console.log (result)  }
+        catch (error){
+            console.log ('error fetching data')
+
+
+        }  }
+        const urls = [
+            'https://jsonplaceholder.typicode.com/posts/1',
+            'https://jsonplaceholder.typicode.com/posts/2',
+            'https://jsonplaceholder.typicode.com/posts/3'
+
+        ];
+        parallelCalls(urls); */
+</script>
+</head>
+
+<body>
+    
+</body>
+</html>
